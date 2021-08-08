@@ -6,7 +6,7 @@ let all = [];
 // this is for the number of the rounds each time +1
 let rounds = 0;
 // this is for the round number the EventListener will stop @
-let numberOfRounds = 5;
+let numberOfRounds = 24;
 // to link the HTML with the section from the js
 const imageSection = document.getElementById('img-Section')
 
@@ -65,3 +65,7 @@ function randomApe(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
+// name of the photo
+// print how much its shown
+// print how much its clicked on each photo
+// show how much click on the page anywhere
