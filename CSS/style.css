@@ -1,9 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lato&family=Montserrat&family=Roboto+Slab&display=swap');
+
+/* font-family: 'Bebas Neue', cursive;
+font-family: 'Lato', sans-serif;
+font-family: 'Montserrat', sans-serif;
+font-family: 'Roboto Slab', serif; */
+
 body{
-    width: 960px;
+    width: 1100px;
     margin: auto;
+    display: grid;
+    grid-template-rows: 100px auto 50px;
+    font-family: 'Bebas Neue', cursive;
 }
 
-.boss{
-    display: grid;
-    grid-template-rows: 100px auto 50xp;
+header{
+    background: #c3c3c3;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 50PX;
 }
+
+.logo{
+    width: 100px;
+}
+.logo:hover{
+    width: 100px;
+    box-shadow: rgb(73, 73, 73) 2px;
+}
+
+body > header > nav > a{
+    text-decoration:none;
+    color: #ffffff;
+    background-color: gray;
+    padding:  10px 20px;
+    text-transform: uppercase;
+    position: relative;
+}
+
+body > header > nav > a:hover{
+    background-color: rgb(255, 255, 255);
+    transition: all 500ms;
+    color: black;
+}
+
+body > header > nav > a::after{
+    background: gray;
+    height: 5px;
+    content: '';
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+}
+.image-Section{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    
+}
+
+.image-Section img{
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+
+}
+
+footer{
+    background: #c3c3c3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: capitalize;
+}
+
+/* how to make the secound P in the footer in another line without changine the way the footer act */
