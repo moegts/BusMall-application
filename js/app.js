@@ -58,6 +58,15 @@ function
     leftRandom = getRandomNumber(0, imgArray.length - 1); // left image
     rightRandom = getRandomNumber(0, imgArray.length - 1); //  right image
     centerRandom = getRandomNumber(0, imgArray.length - 1); // center image
+    
+    do{do{
+            rightRandom = getRandomNumber(0, imgArray.length - 1); //  right image
+        }while((rightRandom === centerRandom) || (rightRandom === leftRandom))
+        centerRandom = getRandomNumber(0, imgArray.length - 1); // center image
+    }while((leftRandom === rightRandom) || (leftRandom === centerRandom) || (rightRandom === centerRandom));
+   
+    console.log (leftRandom +"-"+ rightRandom +"-"+ centerRandom) // checker
+
 
     //here we enter the img src and decleare the name for every image postion
     console.log(leftRandom);
@@ -104,9 +113,9 @@ function
             render();
             console.log(rest.all)
             console.log(`this is counter for clicks: ${clicked}`)
+        }else{
+            console.log(e); // here is how you console log fucntion to check what is happining
         }
-
-    console.log(e); // here is how you console log fucntion to check what is happining
 }
 
 
@@ -119,8 +128,55 @@ function printOnHTML(){
     li.textContent = `${rest.all[i].name} had ${rest.all[i].clicksOnImage} votes,  and was seen ${rest.all[i].shown} times.`;
     const ul = document.getElementById('stopButton')
     resultUl.appendChild(li)
-    
     }
-
- 
+    startchart() // we call the chart here
 }
+
+
+function startchart(){
+    let nameArr = [];
+    let showArr = [];
+
+    for (let i = 0; i < rest.all.length; i++) {
+        nameArr.push(rest.all[i].name);
+        showArr.push(rest.all[i].shown);
+        
+    }
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: nameArr,
+            datasets: [{
+                label: '# Shown',
+                data: showArr,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
+
+// how to be more DRY in line #67 in the while condition

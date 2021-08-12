@@ -85,3 +85,10 @@ footer > p{
 body main button{
     align-items: center;
 }
+
+#myChart{
+    transform: scale(0.4);
+    position: absolute;
+    top: 280px;
+    left: 395px;
+}
