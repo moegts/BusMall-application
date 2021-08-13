@@ -83,12 +83,31 @@ footer > p{
 }
 
 body main button{
-    align-items: center;
+    display: inline-block;
+	justify-content: center;
+	align-items: center;
+	height: 50px;
+    width: 1100px;
+	border: 3px solid rgb(173, 173, 173); 
+    font-family: 'Bebas Neue', cursive;
+    color: rgb(0, 68, 0);
 }
 
 #myChart{
-    transform: scale(0.4);
+    transition-delay: 3s ;
+    transform: scale(0.6);
     position: absolute;
-    top: 280px;
-    left: 395px;
+    top: 520px;
+    left: 467px;
+    z-index: -1;
+}
+
+#stopButton:after{
+    content: unset;
+}
+#stopButton:hover:after,
+#stopButton:focus:after,
+#stopButton:active:after{
+   content: 'This is an ordered list and a chat for 19 products';
+   display: block;
 }
