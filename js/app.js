@@ -58,14 +58,15 @@ function
     leftRandom = getRandomNumber(0, imgArray.length - 1); // left image
     rightRandom = getRandomNumber(0, imgArray.length - 1); //  right image
     centerRandom = getRandomNumber(0, imgArray.length - 1); // center image
-    
-    do{do{
+
+    do {
+        do {
             rightRandom = getRandomNumber(0, imgArray.length - 1); //  right image
-        }while((rightRandom === centerRandom) || (rightRandom === leftRandom))
+        } while ((rightRandom === centerRandom) || (rightRandom === leftRandom))
         centerRandom = getRandomNumber(0, imgArray.length - 1); // center image
-    }while((leftRandom === rightRandom) || (leftRandom === centerRandom) || (rightRandom === centerRandom));
-   
-    console.log (leftRandom +"-"+ rightRandom +"-"+ centerRandom) // checker
+    } while ((leftRandom === rightRandom) || (leftRandom === centerRandom) || (rightRandom === centerRandom));
+
+    console.log(leftRandom + "-" + rightRandom + "-" + centerRandom) // checker
 
 
     //here we enter the img src and decleare the name for every image postion
@@ -73,7 +74,7 @@ function
     leftImage.src = `./img/` + rest.all[leftRandom].image;
     rightImage.src = `./img/` + rest.all[rightRandom].image;
     centerImage.src = `./img/` + rest.all[centerRandom].image;
-    
+
     // to + how much the image did showed
     rest.all[leftRandom].shown++;
     rest.all[rightRandom].shown++;
@@ -94,53 +95,57 @@ function
 imageSection.addEventListener('click', clickbot);
 function
     clickbot(e) {
-        if((e.target.id === 'leftImage' || e.target.id === 'rightImage' || e.target.id === 'centerImage')
-        && (clicked <= numberOfRounds)){
+    if ((e.target.id === 'leftImage' || e.target.id === 'rightImage' || e.target.id === 'centerImage')
+        && (clicked <= numberOfRounds)) {
 
-            // we add the runder in the click event listener function to restart the function everytime we click (as a remote way (linked))
-            clicked++;
+        // we add the runder in the click event listener function to restart the function everytime we click (as a remote way (linked))
+        clicked++;
 
-            if (e.target.id === 'leftImage'){
-                leftImageCounter++;
-                rest.all[leftRandom].clicksOnImage++;
-            }else if (e.target.id === 'rightImage'){
-                rightImageCounter++;
-                rest.all[rightRandom].clicksOnImage++;
-            }else{
-                centerImageCounter++;
-                rest.all[centerRandom].clicksOnImage++;
-            }
-            render();
-            console.log(rest.all)
-            console.log(`this is counter for clicks: ${clicked}`)
-        }else{
-            console.log(e); // here is how you console log fucntion to check what is happining
+        if (e.target.id === 'leftImage') {
+            leftImageCounter++;
+            rest.all[leftRandom].clicksOnImage++;
+        } else if (e.target.id === 'rightImage') {
+            rightImageCounter++;
+            rest.all[rightRandom].clicksOnImage++;
+        } else {
+            centerImageCounter++;
+            rest.all[centerRandom].clicksOnImage++;
         }
+        render();
+        console.log(rest.all)
+        console.log(`this is counter for clicks: ${clicked}`)
+    } else {
+        console.log(e); // here is how you console log fucntion to check what is happining
+    }
 }
 
 
 stopButton.addEventListener('click', printOnHTML)
 
 
-function printOnHTML(){
-    for(let i = 0; i < rest.all.length; i++){
-    let li = document.createElement('li');
-    li.textContent = `${rest.all[i].name} had ${rest.all[i].clicksOnImage} votes,  and was seen ${rest.all[i].shown} times.`;
-    const ul = document.getElementById('stopButton')
-    resultUl.appendChild(li)
+function printOnHTML() {
+    for (let i = 0; i < rest.all.length; i++) {
+        let li = document.createElement('li');
+        li.textContent = `${rest.all[i].name} had ${rest.all[i].clicksOnImage} votes,  and was seen ${rest.all[i].shown} times.`;
+        const ul = document.getElementById('stopButton')
+        resultUl.appendChild(li)
     }
+    stopButton.removeEventListener('click', printOnHTML);
+
     startchart() // we call the chart here
 }
 
 
-function startchart(){
+
+function startchart() {
     let nameArr = [];
     let showArr = [];
+    let clickArr = [];
 
     for (let i = 0; i < rest.all.length; i++) {
         nameArr.push(rest.all[i].name);
         showArr.push(rest.all[i].shown);
-        
+        clickArr.push(rest.all[i].clicksOnImage);
     }
     var ctx = document.getElementById('myChart').getContext('2d');
     var myChart = new Chart(ctx, {
@@ -151,23 +156,99 @@ function startchart(){
                 label: '# Shown',
                 data: showArr,
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
+                    'rgba(124, 77, 52, 0.8)',
+                    'rgba(190, 76, 75, 0.2)',
+                    'rgba(136, 205, 86, 0.7)',
+                    'rgba(158, 113, 223, 0.6)',
+                    'rgba(172, 143, 89, 0.2)',
+                    'rgba(86, 23, 21, 0.7)',
+                    'rgba(245, 161, 135, 0.2)',
+                    'rgba(153, 107, 194, 0.5)',
+                    'rgba(18, 221, 180, 0.7)',
+                    'rgba(194, 242, 10, 0.1)',
+                    'rgba(220, 126, 81, 1)',
+                    'rgba(65, 208, 65, 0.2)',
+                    'rgba(135, 71, 113, 0.8)',
+                    'rgba(100, 211, 170, 0.6)',
+                    'rgba(2, 216, 158, 0.2)',
+                    'rgba(102, 162, 104, 0.4)',
+                    'rgba(59, 80, 88, 0.3)',
+                    'rgba(172, 218, 117, 0.2)',
+                    'rgba(165, 18, 108, 0.1)'
                 ],
                 borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
+                    'rgba(157, 215, 104, 0.3)',
+                    'rgba(89, 126, 167, 0.9)',
+                    'rgba(230, 84, 120, 0.7)',
+                    'rgba(172, 133, 131, 0.1)',
+                    'rgba(181, 100, 148, 0.3)',
+                    'rgba(145, 89, 22, 0.2)',
+                    'rgba(153, 33, 138, 0.3)',
+                    'rgba(73, 248, 69, 0.9)',
+                    'rgba(138, 242, 50, 0)',
+                    'rgba(28, 24, 151, 0.3)',
+                    'rgba(28, 71, 92, 1)',
+                    'rgba(192, 3, 62, 0.4)',
+                    'rgba(42, 244, 17, 0.6)',
+                    'rgba(57, 18, 175, 0.7)',
+                    'rgba(161, 187, 138, 0.3)',
+                    'rgba(130, 251, 216, 0.7)',
+                    'rgba(146, 101, 7, 0.3)',
+                    'rgba(190, 134, 196, 0.3)',
+                    'rgba(127, 142, 161, 1)',
+                    'rgba(225, 13, 30, 0.8)'
                 ],
                 borderWidth: 1
-            }]
+            },
+            {
+                label: '# Clicks on',
+                data: clickArr,
+                backgroundColor: [
+                    'rgba(157, 215, 104, 0.3)',
+                    'rgba(89, 126, 167, 0.9)',
+                    'rgba(230, 84, 120, 0.7)',
+                    'rgba(172, 133, 131, 0.1)',
+                    'rgba(181, 100, 148, 0.3)',
+                    'rgba(145, 89, 22, 0.2)',
+                    'rgba(153, 33, 138, 0.3)',
+                    'rgba(73, 248, 69, 0.9)',
+                    'rgba(138, 242, 50, 0)',
+                    'rgba(28, 24, 151, 0.3)',
+                    'rgba(28, 71, 92, 1)',
+                    'rgba(192, 3, 62, 0.4)',
+                    'rgba(42, 244, 17, 0.6)',
+                    'rgba(57, 18, 175, 0.7)',
+                    'rgba(161, 187, 138, 0.3)',
+                    'rgba(130, 251, 216, 0.7)',
+                    'rgba(146, 101, 7, 0.3)',
+                    'rgba(190, 134, 196, 0.3)',
+                    'rgba(127, 142, 161, 1)',
+                    'rgba(225, 13, 30, 0.8)'
+                ],
+                borderColor: [
+                    'rgba(124, 77, 52, 0.8)',
+                    'rgba(190, 76, 75, 0.2)',
+                    'rgba(136, 205, 86, 0.7)',
+                    'rgba(158, 113, 223, 0.6)',
+                    'rgba(172, 143, 89, 0.2)',
+                    'rgba(86, 23, 21, 0.7)',
+                    'rgba(245, 161, 135, 0.2)',
+                    'rgba(153, 107, 194, 0.5)',
+                    'rgba(18, 221, 180, 0.7)',
+                    'rgba(194, 242, 10, 0.1)',
+                    'rgba(220, 126, 81, 1)',
+                    'rgba(65, 208, 65, 0.2)',
+                    'rgba(135, 71, 113, 0.8)',
+                    'rgba(100, 211, 170, 0.6)',
+                    'rgba(2, 216, 158, 0.2)',
+                    'rgba(102, 162, 104, 0.4)',
+                    'rgba(59, 80, 88, 0.3)',
+                    'rgba(172, 218, 117, 0.2)',
+                    'rgba(165, 18, 108, 0.1)'
+                ],
+                borderWidth: 1
+            }
+            ]
         },
         options: {
             scales: {
