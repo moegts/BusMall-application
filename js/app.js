@@ -35,20 +35,20 @@ let rightImageCounter = 0;
 let centerImageCounter = 0;
 
 function
-    rest(name, imageSrc) {
+    rest(name, imageSrc, shown = 0, clicksOnImage = 0) {
     this.name = name;
     this.image = imageSrc;
-    this.shown = 0; // it should start with 0 untill we start the page it will become 1 as the first time
-    this.clicksOnImage = 0;
+    this.shown = shown; // it should start with 0 untill we start the page it will become 1 as the first time
+    this.clicksOnImage = clicksOnImage;
+
     rest.all.push(this);
 }
 rest.all = [];
 
+getDataFromStorage();
 
 // split the names for every postion image name and image type in array..
-for (let i = 0; i < imgArray.length; i++) {
-    new rest(imgArray[i].split('.')[0], imgArray[i]);
-}
+
 
 //function for runder
 function
@@ -79,6 +79,10 @@ function
     rest.all[leftRandom].shown++;
     rest.all[rightRandom].shown++;
     rest.all[centerRandom].shown++;
+
+    let sendToSoreage = JSON.stringify(rest.all);
+    localStorage.dataRender = sendToSoreage;
+
     console.log(rest.all)
 
 }
@@ -97,10 +101,10 @@ function
     clickbot(e) {
     if ((e.target.id === 'leftImage' || e.target.id === 'rightImage' || e.target.id === 'centerImage')
         && (clicked <= numberOfRounds)) {
-
+    render();
         // we add the runder in the click event listener function to restart the function everytime we click (as a remote way (linked))
         clicked++;
-
+        
         if (e.target.id === 'leftImage') {
             leftImageCounter++;
             rest.all[leftRandom].clicksOnImage++;
@@ -111,7 +115,7 @@ function
             centerImageCounter++;
             rest.all[centerRandom].clicksOnImage++;
         }
-        render();
+        
         console.log(rest.all)
         console.log(`this is counter for clicks: ${clicked}`)
     } else {
@@ -128,11 +132,12 @@ function printOnHTML() {
         let li = document.createElement('li');
         li.textContent = `${rest.all[i].name} had ${rest.all[i].clicksOnImage} votes,  and was seen ${rest.all[i].shown} times.`;
         const ul = document.getElementById('stopButton')
-        resultUl.appendChild(li)
+        resultUl.appendChild(li)   
     }
-    stopButton.removeEventListener('click', printOnHTML);
 
     startchart() // we call the chart here
+    stopButton.removeEventListener('click', printOnHTML);
+
 }
 
 
@@ -156,97 +161,23 @@ function startchart() {
                 label: '# Shown',
                 data: showArr,
                 backgroundColor: [
-                    'rgba(124, 77, 52, 0.8)',
-                    'rgba(190, 76, 75, 0.2)',
-                    'rgba(136, 205, 86, 0.7)',
-                    'rgba(158, 113, 223, 0.6)',
-                    'rgba(172, 143, 89, 0.2)',
-                    'rgba(86, 23, 21, 0.7)',
-                    'rgba(245, 161, 135, 0.2)',
-                    'rgba(153, 107, 194, 0.5)',
-                    'rgba(18, 221, 180, 0.7)',
-                    'rgba(194, 242, 10, 0.1)',
-                    'rgba(220, 126, 81, 1)',
-                    'rgba(65, 208, 65, 0.2)',
-                    'rgba(135, 71, 113, 0.8)',
-                    'rgba(100, 211, 170, 0.6)',
-                    'rgba(2, 216, 158, 0.2)',
-                    'rgba(102, 162, 104, 0.4)',
-                    'rgba(59, 80, 88, 0.3)',
-                    'rgba(172, 218, 117, 0.2)',
-                    'rgba(165, 18, 108, 0.1)'
+                    'rgba(124, 77, 52, 0.8)'
                 ],
                 borderColor: [
-                    'rgba(157, 215, 104, 0.3)',
-                    'rgba(89, 126, 167, 0.9)',
-                    'rgba(230, 84, 120, 0.7)',
-                    'rgba(172, 133, 131, 0.1)',
-                    'rgba(181, 100, 148, 0.3)',
-                    'rgba(145, 89, 22, 0.2)',
-                    'rgba(153, 33, 138, 0.3)',
-                    'rgba(73, 248, 69, 0.9)',
-                    'rgba(138, 242, 50, 0)',
-                    'rgba(28, 24, 151, 0.3)',
-                    'rgba(28, 71, 92, 1)',
-                    'rgba(192, 3, 62, 0.4)',
-                    'rgba(42, 244, 17, 0.6)',
-                    'rgba(57, 18, 175, 0.7)',
-                    'rgba(161, 187, 138, 0.3)',
-                    'rgba(130, 251, 216, 0.7)',
-                    'rgba(146, 101, 7, 0.3)',
-                    'rgba(190, 134, 196, 0.3)',
-                    'rgba(127, 142, 161, 1)',
-                    'rgba(225, 13, 30, 0.8)'
+                    'rgba(217, 30, 24, 1)'
                 ],
-                borderWidth: 1
+                borderWidth: 2
             },
             {
                 label: '# Clicks on',
                 data: clickArr,
                 backgroundColor: [
-                    'rgba(157, 215, 104, 0.3)',
-                    'rgba(89, 126, 167, 0.9)',
-                    'rgba(230, 84, 120, 0.7)',
-                    'rgba(172, 133, 131, 0.1)',
-                    'rgba(181, 100, 148, 0.3)',
-                    'rgba(145, 89, 22, 0.2)',
-                    'rgba(153, 33, 138, 0.3)',
-                    'rgba(73, 248, 69, 0.9)',
-                    'rgba(138, 242, 50, 0)',
-                    'rgba(28, 24, 151, 0.3)',
-                    'rgba(28, 71, 92, 1)',
-                    'rgba(192, 3, 62, 0.4)',
-                    'rgba(42, 244, 17, 0.6)',
-                    'rgba(57, 18, 175, 0.7)',
-                    'rgba(161, 187, 138, 0.3)',
-                    'rgba(130, 251, 216, 0.7)',
-                    'rgba(146, 101, 7, 0.3)',
-                    'rgba(190, 134, 196, 0.3)',
-                    'rgba(127, 142, 161, 1)',
-                    'rgba(225, 13, 30, 0.8)'
+                    'rgba(157, 215, 104, 0.3)'
                 ],
                 borderColor: [
-                    'rgba(124, 77, 52, 0.8)',
-                    'rgba(190, 76, 75, 0.2)',
-                    'rgba(136, 205, 86, 0.7)',
-                    'rgba(158, 113, 223, 0.6)',
-                    'rgba(172, 143, 89, 0.2)',
-                    'rgba(86, 23, 21, 0.7)',
-                    'rgba(245, 161, 135, 0.2)',
-                    'rgba(153, 107, 194, 0.5)',
-                    'rgba(18, 221, 180, 0.7)',
-                    'rgba(194, 242, 10, 0.1)',
-                    'rgba(220, 126, 81, 1)',
-                    'rgba(65, 208, 65, 0.2)',
-                    'rgba(135, 71, 113, 0.8)',
-                    'rgba(100, 211, 170, 0.6)',
-                    'rgba(2, 216, 158, 0.2)',
-                    'rgba(102, 162, 104, 0.4)',
-                    'rgba(59, 80, 88, 0.3)',
-                    'rgba(172, 218, 117, 0.2)',
-                    'rgba(165, 18, 108, 0.1)'
+                    'rgba(220, 126, 81, 1)'
                 ],
-                borderWidth: 1
+                borderWidth: 2 
             }
             ]
         },
@@ -260,4 +191,24 @@ function startchart() {
     });
 }
 
+function getDataFromStorage(){
+    if (localStorage.dataRender){
+        let lastArray = JSON.parse(localStorage.dataRender);
+        console.log(lastArray);
+
+        for (let i = 0; i < lastArray.length; i++) {
+            new rest(lastArray[i].name, lastArray[i].image, lastArray[i].shown, lastArray[i].clicksOnImage);
+            
+        }
+    }
+    else{
+        for (let i = 0; i < imgArray.length; i++) {
+            new rest(imgArray[i].split('.')[0], imgArray[i]);
+        }
+    }
+
+}
+
 // how to be more DRY in line #67 in the while condition
+
+
